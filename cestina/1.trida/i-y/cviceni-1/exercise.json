@@ -6,5 +6,6 @@
     "M<>ška běžela po l<>sce.",
     "Na st<>ně visel obr<>zek."
   ],
-  "answers": ["i", "y", "ě", "á"]
+"options": ["i", "y", "í", "ý", "ě", "á"]
+
 }
