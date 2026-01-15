@@ -3,48 +3,48 @@ layout: default
 title: Procvičovač – procvičuj zábavně
 ---
 
-<div class="layout-container">
-  <!-- Horní header – jen jedna lišta -->
-  <header class="top-header">
+<div class="layout-wrapper">
+  <!-- Jediná horní lišta -->
+  <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
-      <div class="user-controls">
-        <button id="mode-toggle" class="mode-btn" title="Přepnout režim">🌞</button>
-        <a href="#" class="profile-link">Přihlásit se / Profil</a>
+      
+      <div class="right-controls">
+        <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
+        <a href="#" class="profile-btn">Přihlásit se / Profil</a>
       </div>
     </div>
   </header>
 
-  <!-- Hlavní obsah: sidebar + hlavní plocha -->
-  <div class="main-wrapper">
+  <!-- Obsah: sidebar + hlavní plocha -->
+  <div class="content-area">
     <!-- Levý sidebar -->
     <aside class="sidebar">
-      <nav class="sidebar-nav">
-        <ul>
-          <li class="category">
-            <a href="/cestina/" class="category-title">Čeština</a>
-            <ul class="subcategories">
+      <nav>
+        <ul class="menu">
+          <li class="has-submenu">
+            <a href="/cestina/" class="menu-title">Čeština</a>
+            <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/cestina/{{ i }}.trida/">{{ i }}. třída</a></li>
               {% endfor %}
               <li><a href="/cestina/stredni/">Střední škola</a></li>
             </ul>
           </li>
-          <li><a href="/anglictina/" class="category-title">Angličtina</a></li>
-          <li><a href="/matematika/" class="category-title">Matematika</a></li>
+          <li><a href="/anglictina/" class="menu-title">Angličtina</a></li>
+          <li><a href="/matematika/" class="menu-title">Matematika</a></li>
         </ul>
       </nav>
     </aside>
 
-    <!-- Hlavní obsah (na indexu uvítací text) -->
-    <main class="content">
+    <!-- Hlavní obsah – roztáhlý -->
+    <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
       <p>Vyber si předmět v levém menu a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
 
-      <!-- Prozatím teaser – můžeš sem dát něco interaktivního později -->
-      <div class="teaser">
+      <div class="teaser-box">
         <h2>Začni hned s češtinou</h2>
-        <a href="/cestina/" class="btn">Přejít na češtinu</a>
+        <a href="/cestina/" class="start-btn">Přejít na češtinu</a>
       </div>
     </main>
   </div>
@@ -57,161 +57,203 @@ title: Procvičovač – procvičuj zábavně
     --header-bg: #e5e7eb;
     --sidebar-bg: #f1f5f9;
     --sidebar-hover: #e2e8f0;
-    --accent: #6b7280;
+    --accent: #64748b;
   }
 
   body.dark {
-    --bg: #111827;
-    --text: #f3f4f6;
-    --header-bg: #1f2937;
+    --bg: #0f172a;
+    --text: #e2e8f0;
+    --header-bg: #1e293b;
     --sidebar-bg: #1e293b;
     --sidebar-hover: #334155;
-    --accent: #9ca3af;
+    --accent: #94a3b8;
   }
 
-  body { 
-    background: var(--bg); 
-    color: var(--text); 
-    margin: 0; 
-    font-family: system-ui, sans-serif; 
+  body {
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
   }
 
-  .top-header {
+  .top-bar {
     background: var(--header-bg);
     padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
   .container {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .logo {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     font-weight: bold;
     color: var(--text);
     text-decoration: none;
   }
 
-  .user-controls {
+  .right-controls {
     display: flex;
-    gap: 1.5rem;
     align-items: center;
+    gap: 1.5rem;
   }
 
-  .mode-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; }
-  .profile-link {
+  .mode-btn {
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: var(--text);
+  }
+
+  .profile-btn {
     background: var(--accent);
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.55rem 1.1rem;
     border-radius: 6px;
     text-decoration: none;
+    font-size: 0.95rem;
   }
 
-  .main-wrapper {
+  .content-area {
     display: flex;
-    min-height: calc(100vh - 70px); /* header výška ~70px */
+    min-height: calc(100vh - 65px);
   }
 
   .sidebar {
-    width: 280px;
+    width: 260px;
     background: var(--sidebar-bg);
     border-right: 1px solid var(--accent);
     padding: 2rem 1rem;
     position: sticky;
-    top: 70px;
-    height: calc(100vh - 70px);
+    top: 65px;
+    height: calc(100vh - 65px);
     overflow-y: auto;
   }
 
-  .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
-  .category-title {
-    display: block;
-    padding: 1rem;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--text);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.2s;
-  }
-  .category-title:hover { background: var(--sidebar-hover); }
-
-  .subcategories {
+  .menu {
     list-style: none;
-    padding-left: 1.5rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
+    padding: 0;
+    margin: 0;
   }
 
-  .category.active .subcategories { max-height: 500px; } /* dost velký pro rozbalení */
-
-  .subcategories li a {
+  .menu-title {
     display: block;
-    padding: 0.8rem 1rem;
+    padding: 0.9rem 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
     color: var(--text);
     text-decoration: none;
     border-radius: 6px;
   }
-  .subcategories li a:hover { background: var(--sidebar-hover); }
 
-  .content {
+  .menu-title:hover,
+  .has-submenu.active > .menu-title {
+    background: var(--sidebar-hover);
+  }
+
+  .submenu {
+    list-style: none;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .has-submenu.active .submenu {
+    max-height: 600px; /* dost pro všechny třídy */
+  }
+
+  .submenu li a {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .submenu li a:hover {
+    background: var(--sidebar-hover);
+  }
+
+  .main-content {
     flex: 1;
     padding: 4rem 3rem;
-    max-width: 900px;
+    max-width: 1200px; /* omezení pro čitelnost, ale na velkém monitoru zabere skoro celou šířku */
+    margin: 0 auto;
+    width: 100%;
   }
 
   h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
-  .teaser { margin-top: 4rem; text-align: center; }
-  .btn {
+  p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
+
+  .teaser-box {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+
+  .start-btn {
     background: var(--accent);
     color: white;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 8px;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    display: inline-block;
+    margin-top: 1.5rem;
   }
 
   @media (max-width: 992px) {
-    .main-wrapper { flex-direction: column; }
-    .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); }
-    .content { padding: 2rem 1.5rem; }
+    .content-area { flex-direction: column; }
+    .sidebar {
+      width: 100%;
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--accent);
+      padding: 1.5rem;
+    }
+    .main-content { padding: 2.5rem 1.5rem; }
   }
 </style>
 
 <script>
-// Rozbalování podkategorií (jen pro Češtinu na indexu)
-document.querySelectorAll('.category-title').forEach(title => {
-  title.addEventListener('click', (e) => {
-    if (title.parentElement.classList.contains('category')) {
-      e.preventDefault(); // zabrání okamžitému přechodu na /cestina/
-      title.parentElement.classList.toggle('active');
-    }
+// Rozbalování submenu pro Češtinu (jen kliknutí na titul)
+document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
+  title.addEventListener('click', function(e) {
+    e.preventDefault(); // zabrání okamžitému přechodu na /cestina/
+    this.parentElement.classList.toggle('active');
   });
 });
 
-// Dark/light mód (stejný jako dřív)
-const toggleBtn = document.getElementById('mode-toggle');
+// Dark / Light mód
+const toggle = document.getElementById('mode-toggle');
 if (localStorage.getItem('mode') === 'dark' || 
     (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
   document.body.classList.add('dark');
-  toggleBtn.textContent = '🌙';
+  toggle.textContent = '🌙';
 } else {
-  toggleBtn.textContent = '🌞';
+  toggle.textContent = '🌞';
 }
 
-toggleBtn.addEventListener('click', () => {
+toggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
-  toggleBtn.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+  toggle.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
   localStorage.setItem('mode', document.body.classList.contains('dark') ? 'dark' : 'light');
 });
 </script>
