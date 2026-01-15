@@ -171,7 +171,7 @@ title: Procvičovač – procvičuj zábavně
   }
 
   .has-submenu.active .submenu {
-    max-height: 600px; /* dost pro všechny třídy */
+    max-height: 600px;
   }
 
   .submenu li a {
@@ -190,7 +190,7 @@ title: Procvičovač – procvičuj zábavně
   .main-content {
     flex: 1;
     padding: 4rem 3rem;
-    max-width: 1200px; /* omezení pro čitelnost, ale na velkém monitoru zabere skoro celou šířku */
+    max-width: 1200px;
     margin: 0 auto;
     width: 100%;
   }
@@ -233,15 +233,15 @@ title: Procvičovač – procvičuj zábavně
 </style>
 
 <script>
-// Rozbalování submenu pro Češtinu (jen kliknutí na titul)
+// Rozbalování submenu
 document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
   title.addEventListener('click', function(e) {
-    e.preventDefault(); // zabrání okamžitému přechodu na /cestina/
+    e.preventDefault();
     this.parentElement.classList.toggle('active');
   });
 });
 
-// Dark / Light mód
+// Dark/light mód
 const toggle = document.getElementById('mode-toggle');
 if (localStorage.getItem('mode') === 'dark' || 
     (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
