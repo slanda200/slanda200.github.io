@@ -61,6 +61,28 @@ title: Procvičovač – procvičuj zábavně
     --sidebar-hover: #e2e8f0;
     --accent: #64748b;
   }
+  /* Skryje defaultní Minima header (duplicitní lišta nahoře) */
+header[role="banner"],
+.site-header,
+.post-header,
+.page-header {
+  display: none !important;
+}
+
+/* Zajistí, že tvůj custom top-bar je vidět a správně umístěný */
+.top-bar {
+  display: flex !important;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+/* Posune obsah dolů, aby nebyl překrytý */
+.content-area {
+  margin-top: 70px; /* přizpůsob podle výšky headeru – 60–80px */
+}
 
   body.dark {
     --bg: #0f172a;
