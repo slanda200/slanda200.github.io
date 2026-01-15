@@ -1,217 +1,169 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <title>Cvičení – Procvičovač</title>
+<meta charset="UTF-8">
+<title>Cvičení – doplňování</title>
 
-  <style>
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --primary: #2563eb;
-      --muted: #64748b;
-      --success: #86efac;
-      --error: #fca5a5;
-      --warning: #fde68a;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: #0f172a;
-    }
+/* ===== NAVBAR ===== */
+nav {
+    background: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    gap: 20px;
+}
 
-    /* ===== NAVBAR ===== */
-    .navbar {
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      padding: 0.8rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-    .logo {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--primary);
-      text-decoration: none;
-    }
+nav a:hover {
+    text-decoration: underline;
+}
 
-    .nav-right a {
-      text-decoration: none;
-      color: var(--muted);
-      font-weight: 500;
-    }
+/* ===== CONTENT ===== */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
 
-    /* ===== CONTENT ===== */
-    .container {
-      max-width: 900px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem;
-    }
+h1 {
+    margin-top: 0;
+}
 
-    .card {
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    }
+.exercise {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
 
-    h1 {
-      margin-top: 0;
-    }
+.blank {
+    border-bottom: 2px solid black;
+    padding: 0 10px;
+    min-width: 30px;
+    display: inline-block;
+    text-align: center;
+}
 
-    .instruction {
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
+/* ===== OPTIONS ===== */
+.options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
 
-    .blank {
-      background: var(--warning);
-      padding: 0 0.35rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 700;
-    }
+.options button {
+    padding: 10px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f1f5f9;
+}
 
-    .check-btn {
-      margin-top: 1.5rem;
-      padding: 0.8rem 1.4rem;
-      border-radius: 8px;
-      border: none;
-      background: var(--primary);
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
+.options button:hover {
+    background: #e2e8f0;
+}
 
-    #result {
-      margin-top: 1rem;
-      font-weight: 600;
-    }
+/* ===== CHECK ===== */
+.check-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-    /* ===== MODAL ===== */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+.check-btn:hover {
+    background: #1d4ed8;
+}
 
-    .modal-content {
-      background: white;
-      padding: 1.8rem;
-      border-radius: 14px;
-      text-align: center;
-      min-width: 260px;
-    }
-
-    .options button {
-      font-size: 1.4rem;
-      margin: 0.4rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      background: #e5e7eb;
-    }
-  </style>
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <a href="/" class="logo">Procvičovač</a>
-    <div class="nav-right">
-      <a href="#">Přihlásit se</a>
-    </div>
-  </div>
+<!-- NAVBAR -->
+<nav>
+    <a href="index.html">Domů</a>
+    <a href="cviceni.html">Cvičení</a>
+    <a href="#">Profil</a>
+</nav>
 
-  <!-- CONTENT -->
-  <div class="container">
-    <div class="card">
-      <h1 id="title">Načítám…</h1>
-      <p class="instruction" id="instruction"></p>
+<!-- CONTENT -->
+<div class="container">
+    <h1 id="title">Načítání…</h1>
 
-      <div id="exercise-text"></div>
+    <div class="exercise" id="sentence"></div>
 
-      <button class="check-btn" onclick="checkAnswers()">Zkontrolovat</button>
-      <div id="result"></div>
-    </div>
-  </div>
+    <div class="options" id="options"></div>
 
-  <!-- MODAL -->
-  <div id="popup" class="modal">
-    <div class="modal-content">
-      <h3>Vyber písmeno</h3>
-      <div class="options" id="options"></div>
-    </div>
-  </div>
+    <button class="check-btn" onclick="checkAnswer()">Zkontrolovat</button>
+
+    <div class="result" id="result"></div>
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+let exerciseData = null;
+let userAnswer = "";
 
-  let currentBlank = null;
-  let answers = [];
-  let options = [];
+// načtení dat
+fetch("exercises.json")
+.then(res => res.json())
+.then(data => {
+    exerciseData = data.exercises[0];
 
-  fetch("exercise.json")
-    .then(r => r.json())
-    .then(data => {
-      document.getElementById("title").textContent = data.title;
-      document.getElementById("instruction").textContent = data.instruction;
+    document.getElementById("title").textContent = exerciseData.title;
 
-      answers = data.answers;
-      options = data.options;
+    // věta s mezerou
+    document.getElementById("sentence").innerHTML =
+        exerciseData.text.replace("___", `<span class="blank" id="blank">?</span>`);
 
-      let index = 0;
-      let html = "";
-
-      data.text.forEach(line => {
-        html += "<p>" + line.replace(/<>/g, () =>
-          `<span class="blank" onclick="openPopup(${index++})">_</span>`
-        ) + "</p>";
-      });
-
-      document.getElementById("exercise-text").innerHTML = html;
+    // možnosti z JSONU (ne natvrdo!)
+    const optionsDiv = document.getElementById("options");
+    exerciseData.options.forEach(letter => {
+        const btn = document.createElement("button");
+        btn.textContent = letter;
+        btn.onclick = () => {
+            userAnswer = letter;
+            document.getElementById("blank").textContent = letter;
+        };
+        optionsDiv.appendChild(btn);
     });
-
-  window.openPopup = function(i) {
-    currentBlank = i;
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("options").innerHTML =
-      options.map(o => `<button onclick="fill('${o}')">${o}</button>`).join("");
-  }
-
-  window.fill = function(letter) {
-    document.querySelectorAll(".blank")[currentBlank].textContent = letter;
-    document.getElementById("popup").style.display = "none";
-  }
-
-  window.checkAnswers = function() {
-    const blanks = document.querySelectorAll(".blank");
-    let correct = 0;
-
-    blanks.forEach((b, i) => {
-      if (b.textContent === answers[i]) {
-        b.style.background = "var(--success)";
-        correct++;
-      } else {
-        b.style.background = "var(--error)";
-      }
-    });
-
-    document.getElementById("result").innerHTML =
-      `Výsledek: ${correct} / ${answers.length}`;
-  }
-
 });
+
+function checkAnswer() {
+    if (!userAnswer) {
+        document.getElementById("result").textContent = "Vyber písmeno.";
+        return;
+    }
+
+    if (userAnswer === exerciseData.correct) {
+        document.getElementById("result").textContent = "✅ Správně!";
+    } else {
+        document.getElementById("result").textContent =
+            `❌ Špatně. Správně je: ${exerciseData.correct}`;
+    }
+}
 </script>
 
 </body>
