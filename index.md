@@ -31,10 +31,34 @@ title: Procvičovač – procvičuj zábavně
               <li><a href="/cestina/stredni/">Střední škola</a></li>
             </ul>
           </li>
-          <li><a href="/anglictina/" class="menu-title">Angličtina</a></li>
-          <li><a href="/matematika/" class="menu-title">Matematika</a></li>
-          <!-- Nová kategorie IT -->
-          <li><a href="/it/" class="menu-title">IT</a></li>
+          <li class="has-submenu">
+            <a href="/anglictina/" class="menu-title">Angličtina</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/anglictina/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/anglictina/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a href="/matematika/" class="menu-title">Matematika</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/matematika/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/matematika/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
+          <!-- Pokud chceš IT i s podkategorii, přidej tady (nebo smaž) -->
+          <li class="has-submenu">
+            <a href="/it/" class="menu-title">IT</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/it/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/it/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
     </aside>
@@ -61,28 +85,6 @@ title: Procvičovač – procvičuj zábavně
     --sidebar-hover: #e2e8f0;
     --accent: #64748b;
   }
-  /* Skryje defaultní Minima header (duplicitní lišta nahoře) */
-header[role="banner"],
-.site-header,
-.post-header,
-.page-header {
-  display: none !important;
-}
-
-/* Zajistí, že tvůj custom top-bar je vidět a správně umístěný */
-.top-bar {
-  display: flex !important;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 999;
-}
-
-/* Posune obsah dolů, aby nebyl překrytý */
-.content-area {
-  margin-top: 70px; /* přizpůsob podle výšky headeru – 60–80px */
-}
 
   body.dark {
     --bg: #0f172a;
@@ -267,7 +269,7 @@ document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
 
 // Dark/light mód
 const toggle = document.getElementById('mode-toggle');
-if (localStorage.getItem('mode') === 'dark' ||
+if (localStorage.getItem('mode') === 'dark' || 
     (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
   document.body.classList.add('dark');
   toggle.textContent = '🌙';
