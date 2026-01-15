@@ -1,0 +1,10 @@
+{
+  "title": "Cvičení 1 – i / y",
+  "instruction": "Klikni na _ a vyber správné písmeno.",
+  "options": ["i", "y", "í", "ý"],
+  "text": [
+    "M<>ška běžela po l<>sce.",
+    "Na st<>ně visel obr<>zek."
+  ],
+  "answers": ["i", "y", "ě", "á"]
+}
