@@ -6,17 +6,20 @@
 
   <style>
     body {
-      font-family: sans-serif;
+      font-family: system-ui, sans-serif;
       background: #f8fafc;
       padding: 2rem;
     }
+
+    h1 { margin-bottom: 0.5rem; }
+    p { font-size: 1.1rem; }
 
     .task-box {
       background: #f1f5f9;
       padding: 2rem;
       border-radius: 12px;
-      max-width: 700px;
-      margin: auto;
+      max-width: 720px;
+      margin: 2rem auto;
     }
 
     .blank {
@@ -31,9 +34,10 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.45);
       justify-content: center;
       align-items: center;
+      z-index: 999;
     }
 
     .modal-content {
@@ -41,26 +45,35 @@
       padding: 2rem;
       border-radius: 12px;
       text-align: center;
+      min-width: 250px;
     }
 
     #options button {
-      font-size: 1.5rem;
-      margin: 0.5rem;
-      padding: 0.7rem 1.2rem;
+      font-size: 1.4rem;
+      margin: 0.4rem;
+      padding: 0.6rem 1.1rem;
       cursor: pointer;
     }
 
     button {
-      margin-top: 1rem;
-      padding: 0.7rem 1.2rem;
+      padding: 0.7rem 1.3rem;
       cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      background: #64748b;
+      color: white;
+    }
+
+    #result {
+      margin-top: 1.2rem;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-  <h1 id="title"></h1>
+  <h1 id="title">Načítám cvičení…</h1>
   <p id="instruction"></p>
 
   <div class="task-box" id="exercise-text"></div>
@@ -79,65 +92,77 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-let currentBlank = null;
-let answers = [];
-let options = [];
+  let currentBlank = null;
+  let answers = [];
+  let options = [];
 
-fetch("exercise.json")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("title").textContent = data.title;
-    document.getElementById("instruction").textContent = data.instruction;
+  fetch("exercise.json")
+    .then(res => res.json())
+    .then(data => {
 
-    answers = data.answers;
-    options = data.options;
+      const titleEl = document.getElementById("title");
+      const instructionEl = document.getElementById("instruction");
 
-    let index = 0;
-    let html = "";
+      if (titleEl) titleEl.textContent = data.title || "Cvičení";
+      if (instructionEl) instructionEl.textContent = data.instruction || "";
 
-    data.text.forEach(line => {
-      html += "<p>" + line.replace(/<>/g, () => {
-        return `<span class="blank" data-index="${index}" onclick="openPopup(${index++})">_</span>`;
-      }) + "</p>";
+      answers = data.answers || [];
+      options = data.options || [];
+
+      let index = 0;
+      let html = "";
+
+      data.text.forEach(line => {
+        html += "<p>" + line.replace(/<>/g, () => {
+          return `<span class="blank" data-index="${index}" onclick="openPopup(${index++})">_</span>`;
+        }) + "</p>";
+      });
+
+      const box = document.getElementById("exercise-text");
+      if (box) box.innerHTML = html;
+    })
+    .catch(err => {
+      console.error("Chyba při načítání JSON:", err);
+      document.getElementById("title").textContent = "Chyba při načítání cvičení";
     });
 
-    document.getElementById("exercise-text").innerHTML = html;
-  });
+  window.openPopup = function(i) {
+    currentBlank = i;
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("options").innerHTML =
+      options.map(o => `<button onclick="fill('${o}')">${o}</button>`).join("");
+  }
 
-window.openPopup = function(i) {
-  currentBlank = i;
-  document.getElementById("popup").style.display = "flex";
-  document.getElementById("options").innerHTML =
-    options.map(o => `<button onclick="fill('${o}')">${o}</button>`).join("");
-}
+  window.closePopup = function() {
+    document.getElementById("popup").style.display = "none";
+  }
 
-window.closePopup = function() {
-  document.getElementById("popup").style.display = "none";
-}
-
-window.fill = function(letter) {
-  document.querySelectorAll(".blank")[currentBlank].textContent = letter;
-  closePopup();
-}
-
-window.checkAnswers = function() {
-  const blanks = document.querySelectorAll(".blank");
-  let correct = 0;
-  let out = "";
-
-  blanks.forEach((b, i) => {
-    if (b.textContent === answers[i]) {
-      b.style.background = "#86efac";
-      correct++;
-    } else {
-      b.style.background = "#fca5a5";
-      out += `Chyba ${i + 1}: správně je ${answers[i]}<br>`;
+  window.fill = function(letter) {
+    const blanks = document.querySelectorAll(".blank");
+    if (blanks[currentBlank]) {
+      blanks[currentBlank].textContent = letter;
     }
-  });
+    closePopup();
+  }
 
-  document.getElementById("result").innerHTML =
-    `Výsledek: ${correct}/${answers.length}<br>${out}`;
-}
+  window.checkAnswers = function() {
+    const blanks = document.querySelectorAll(".blank");
+    let correct = 0;
+    let output = "";
+
+    blanks.forEach((b, i) => {
+      if (b.textContent === answers[i]) {
+        b.style.background = "#86efac";
+        correct++;
+      } else {
+        b.style.background = "#fca5a5";
+        output += `Chyba ${i + 1}: správně je <b>${answers[i]}</b><br>`;
+      }
+    });
+
+    document.getElementById("result").innerHTML =
+      `Výsledek: ${correct}/${answers.length}<br>${output}`;
+  }
 
 });
 </script>
