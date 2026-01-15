@@ -2,90 +2,155 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Cvičení – i / y</title>
+  <title>Cvičení – Procvičovač</title>
 
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #f8fafc;
-      padding: 2rem;
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --primary: #2563eb;
+      --muted: #64748b;
+      --success: #86efac;
+      --error: #fca5a5;
+      --warning: #fde68a;
     }
 
-    h1 { margin-bottom: 0.5rem; }
-    p { font-size: 1.1rem; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: #0f172a;
+    }
 
-    .task-box {
-      background: #f1f5f9;
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-right a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ===== CONTENT ===== */
+    .container {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
       padding: 2rem;
-      border-radius: 12px;
-      max-width: 720px;
-      margin: 2rem auto;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .instruction {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
     }
 
     .blank {
-      background: #fde68a;
-      padding: 0 0.3rem;
-      cursor: pointer;
+      background: var(--warning);
+      padding: 0 0.35rem;
       border-radius: 4px;
-      font-weight: bold;
+      cursor: pointer;
+      font-weight: 700;
     }
 
+    .check-btn {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    /* ===== MODAL ===== */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0,0,0,0.4);
       justify-content: center;
       align-items: center;
-      z-index: 999;
+      z-index: 1000;
     }
 
     .modal-content {
       background: white;
-      padding: 2rem;
-      border-radius: 12px;
+      padding: 1.8rem;
+      border-radius: 14px;
       text-align: center;
-      min-width: 250px;
+      min-width: 260px;
     }
 
-    #options button {
+    .options button {
       font-size: 1.4rem;
       margin: 0.4rem;
-      padding: 0.6rem 1.1rem;
-      cursor: pointer;
-    }
-
-    button {
-      padding: 0.7rem 1.3rem;
-      cursor: pointer;
-      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
       border: none;
-      background: #64748b;
-      color: white;
-    }
-
-    #result {
-      margin-top: 1.2rem;
-      font-weight: bold;
+      cursor: pointer;
+      background: #e5e7eb;
     }
   </style>
 </head>
 
 <body>
 
-  <h1 id="title">Načítám cvičení…</h1>
-  <p id="instruction"></p>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <a href="/" class="logo">Procvičovač</a>
+    <div class="nav-right">
+      <a href="#">Přihlásit se</a>
+    </div>
+  </div>
 
-  <div class="task-box" id="exercise-text"></div>
+  <!-- CONTENT -->
+  <div class="container">
+    <div class="card">
+      <h1 id="title">Načítám…</h1>
+      <p class="instruction" id="instruction"></p>
 
-  <button onclick="checkAnswers()">Zkontrolovat</button>
-  <p id="result"></p>
+      <div id="exercise-text"></div>
 
+      <button class="check-btn" onclick="checkAnswers()">Zkontrolovat</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
   <div id="popup" class="modal">
     <div class="modal-content">
       <h3>Vyber písmeno</h3>
-      <div id="options"></div>
-      <button onclick="closePopup()">Zavřít</button>
+      <div class="options" id="options"></div>
     </div>
   </div>
 
@@ -97,33 +162,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let options = [];
 
   fetch("exercise.json")
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
+      document.getElementById("title").textContent = data.title;
+      document.getElementById("instruction").textContent = data.instruction;
 
-      const titleEl = document.getElementById("title");
-      const instructionEl = document.getElementById("instruction");
-
-      if (titleEl) titleEl.textContent = data.title || "Cvičení";
-      if (instructionEl) instructionEl.textContent = data.instruction || "";
-
-      answers = data.answers || [];
-      options = data.options || [];
+      answers = data.answers;
+      options = data.options;
 
       let index = 0;
       let html = "";
 
       data.text.forEach(line => {
-        html += "<p>" + line.replace(/<>/g, () => {
-          return `<span class="blank" data-index="${index}" onclick="openPopup(${index++})">_</span>`;
-        }) + "</p>";
+        html += "<p>" + line.replace(/<>/g, () =>
+          `<span class="blank" onclick="openPopup(${index++})">_</span>`
+        ) + "</p>";
       });
 
-      const box = document.getElementById("exercise-text");
-      if (box) box.innerHTML = html;
-    })
-    .catch(err => {
-      console.error("Chyba při načítání JSON:", err);
-      document.getElementById("title").textContent = "Chyba při načítání cvičení";
+      document.getElementById("exercise-text").innerHTML = html;
     });
 
   window.openPopup = function(i) {
@@ -133,35 +189,26 @@ document.addEventListener("DOMContentLoaded", () => {
       options.map(o => `<button onclick="fill('${o}')">${o}</button>`).join("");
   }
 
-  window.closePopup = function() {
-    document.getElementById("popup").style.display = "none";
-  }
-
   window.fill = function(letter) {
-    const blanks = document.querySelectorAll(".blank");
-    if (blanks[currentBlank]) {
-      blanks[currentBlank].textContent = letter;
-    }
-    closePopup();
+    document.querySelectorAll(".blank")[currentBlank].textContent = letter;
+    document.getElementById("popup").style.display = "none";
   }
 
   window.checkAnswers = function() {
     const blanks = document.querySelectorAll(".blank");
     let correct = 0;
-    let output = "";
 
     blanks.forEach((b, i) => {
       if (b.textContent === answers[i]) {
-        b.style.background = "#86efac";
+        b.style.background = "var(--success)";
         correct++;
       } else {
-        b.style.background = "#fca5a5";
-        output += `Chyba ${i + 1}: správně je <b>${answers[i]}</b><br>`;
+        b.style.background = "var(--error)";
       }
     });
 
     document.getElementById("result").innerHTML =
-      `Výsledek: ${correct}/${answers.length}<br>${output}`;
+      `Výsledek: ${correct} / ${answers.length}`;
   }
 
 });
