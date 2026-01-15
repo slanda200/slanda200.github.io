@@ -1,0 +1,21 @@
+title: Procvičování pro školu
+description: Čeština, Angličtina, Matematika – 1. stupeň i střední škola
+theme: minima   # jednoduché téma, které GitHub podporuje automaticky
+
+# Menu v horní liště
+header_pages:
+  - index.md
+  - o-projektu.md     # můžeš si přidat později
+
+# Tvoje vlastní data pro menu (budeme používat níže)
+navigation:
+  - title: Domů
+    url: /
+  - title: Předměty
+    submenu:
+      - title: Čeština
+        url: /cestina/
+      - title: Angličtina
+        url: /anglictina/
+      - title: Matematika
+        url: /matematika/
