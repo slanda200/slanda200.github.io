@@ -8,7 +8,8 @@ fetch("exercise.json")
   .then(res => res.json())
   .then(data => {
     document.querySelector("h1").textContent = data.title;
-    document.querySelector("p").textContent = data.instruction;
+   document.getElementById("instruction").textContent = data.instruction;
+
 
     answers = data.answers;
     options = data.options;
