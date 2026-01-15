@@ -33,6 +33,8 @@ title: Procvičovač – procvičuj zábavně
           </li>
           <li><a href="/anglictina/" class="menu-title">Angličtina</a></li>
           <li><a href="/matematika/" class="menu-title">Matematika</a></li>
+          <!-- Nová kategorie IT -->
+          <li><a href="/it/" class="menu-title">IT</a></li>
         </ul>
       </nav>
     </aside>
@@ -243,7 +245,7 @@ document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
 
 // Dark/light mód
 const toggle = document.getElementById('mode-toggle');
-if (localStorage.getItem('mode') === 'dark' || 
+if (localStorage.getItem('mode') === 'dark' ||
     (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
   document.body.classList.add('dark');
   toggle.textContent = '🌙';
