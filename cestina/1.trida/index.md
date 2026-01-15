@@ -48,7 +48,39 @@ title: Čeština – 1. třída
 </div>
 
 <style>
-  /* Styl z hlavní stránky + vylepšení pro profi vzhled (zaoblené boxy, stínování) */
+  /* === DEFINITIVNĚ SKRYJE DEFAULTNÍ MINIMA HEADER (to samé jako na hlavní stránce) === */
+  .site-header,
+  .header,
+  .post-header,
+  .page-header,
+  header[role="banner"],
+  #site-header,
+  nav[role="navigation"],
+  .banner,
+  .masthead,
+  .site-title {
+    display: none !important;
+  }
+
+  /* Zajistí, že tvůj header zůstane nahoře */
+  .top-bar {
+    display: flex !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+
+  /* Posune obsah dolů, aby nebyl překrytý */
+  .content-area,
+  main,
+  .main-content {
+    margin-top: 75px !important;
+  }
+
+  /* Tvé původní styly (zůstávají stejné) */
   :root {
     --bg: #f8f9fa;
     --text: #1f2937;
@@ -77,10 +109,6 @@ title: Čeština – 1. třída
   .top-bar {
     background: var(--header-bg);
     padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
 
   .container {
@@ -211,7 +239,7 @@ title: Čeština – 1. třída
 <script>
   // Dark/light mód
   const toggle = document.getElementById('mode-toggle');
-  if (localStorage.getItem('mode') === 'dark' || 
+  if (localStorage.getItem('mode') === 'dark' ||
       (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.body.classList.add('dark');
     toggle.textContent = '🌙';
