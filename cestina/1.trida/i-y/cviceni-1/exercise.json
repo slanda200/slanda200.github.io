@@ -2,9 +2,9 @@
   "title": "Cvičení – i / y",
   "instruction": "Klikni na mezeru a vyber správné písmeno.",
   "text": [
-    "Děti si hrály na h<>šti.",
+    "Děti si hrál<> na h<>šti.",
     "Malý kluk běžel po l<>ce."
   ],
-  "answers": ["ř", "o"],
-  "options": ["ř", "r", "o", "ó", "ě", "á"]
+  "answers": ["y", "ř", "o"],
+  "options": ["y", "ř", "r", "o", "ó", "ě", "á"]
 }
