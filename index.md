@@ -7,12 +7,13 @@ title: Procvičovač – procvičuj zábavně
   <div class="container">
     <a href="/" class="logo">
       <strong>Procvičovač</strong>
-      <span class="slogan">Procvičuj češtinu, angličtinu a matiku zábavně a zdarma</span>
     </a>
+
+    <span class="slogan">Procvičuj češtinu, angličtinu a matiku zábavně a zdarma</span>
 
     <div class="user-controls">
       <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
-      <a href="#" class="profile-link">Profil / Přihlásit se</a>
+      <a href="#" class="profile-link">Přihlásit se / Profil</a>
     </div>
   </div>
 </header>
@@ -29,17 +30,17 @@ title: Procvičovač – procvičuj zábavně
 
 <style>
   :root {
-    --bg: #f8f9fa;              /* světlý mód - velmi světlá šedá */
-    --text: #1f2937;            /* tmavě šedý text */
-    --header-bg: #e5e7eb;       /* header šedý */
-    --card-bg: #e5e7eb;         /* tlačítka šedá */
-    --card-hover: #d1d5db;      /* hover efekt */
-    --accent: #6b7280;          /* šedomodrá akcent */
+    --bg: #f8f9fa;
+    --text: #1f2937;
+    --header-bg: #e5e7eb;
+    --card-bg: #e5e7eb;
+    --card-hover: #d1d5db;
+    --accent: #6b7280;
   }
 
   body.dark {
-    --bg: #111827;              /* tmavý mód - hluboká šedá */
-    --text: #f3f4f6;            /* světlý text */
+    --bg: #111827;
+    --text: #f3f4f6;
     --header-bg: #1f2937;
     --card-bg: #374151;
     --card-hover: #4b5563;
@@ -57,8 +58,10 @@ title: Procvičovač – procvičuj zábavně
   .site-header {
     background: var(--header-bg);
     padding: 1.2rem 0;
-    border-bottom: 1px solid var(--accent);
-    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
 
   .container {
@@ -68,21 +71,24 @@ title: Procvičovač – procvičuj zábavně
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .logo {
     text-decoration: none;
     color: var(--text);
-    font-size: 2.1rem;
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
+    font-size: 2.2rem;
+    font-weight: bold;
   }
 
   .slogan {
     font-size: 1.1rem;
     color: var(--accent);
-    font-weight: normal;
+    font-weight: 400;
+    flex: 1;
+    text-align: center;
+    min-width: 200px;
   }
 
   .user-controls {
@@ -116,52 +122,52 @@ title: Procvičovač – procvičuj zábavně
 
   .main-content {
     text-align: center;
-    padding: 4rem 1rem 6rem;
+    padding: 5rem 1rem 8rem;
   }
 
   h1 {
-    font-size: 2.8rem;
-    margin-bottom: 3rem;
+    font-size: 3rem;
+    margin-bottom: 3.5rem;
     font-weight: 700;
   }
 
   .subject-grid {
     display: flex;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 3rem;
     flex-wrap: wrap;
   }
 
   .subject-card {
     background: var(--card-bg);
     color: var(--text);
-    padding: 3.5rem 6rem;
-    font-size: 2.2rem;
+    padding: 4rem 7rem;
+    font-size: 2.4rem;
     font-weight: bold;
-    border-radius: 16px;
+    border-radius: 20px;
     text-decoration: none;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
-    min-width: 220px;
-    text-align: center;
+    min-width: 240px;
   }
 
   .subject-card:hover {
     background: var(--card-hover);
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
   }
 
-  @media (max-width: 768px) {
-    .subject-grid { flex-direction: column; align-items: center; }
-    .subject-card { padding: 2.5rem 4rem; font-size: 1.8rem; }
+  @media (max-width: 900px) {
+    .container { flex-direction: column; text-align: center; }
+    .slogan { margin: 0.5rem 0; }
+    .subject-grid { gap: 2rem; }
+    .subject-card { padding: 3rem 5rem; font-size: 2rem; }
   }
 </style>
 
 <script>
   const toggleBtn = document.getElementById('mode-toggle');
   
-  // Načti uložený mód nebo systémový preference
   if (localStorage.getItem('mode') === 'dark' || 
       (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.body.classList.add('dark');
@@ -172,7 +178,6 @@ title: Procvičovač – procvičuj zábavně
 
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
-    
     if (document.body.classList.contains('dark')) {
       toggleBtn.textContent = '🌙';
       localStorage.setItem('mode', 'dark');
