@@ -4,7 +4,7 @@ title: Procvičovač – procvičuj zábavně
 ---
 
 <div class="layout-wrapper">
-  <!-- Jediná horní lišta -->
+  <!-- Tvoje jediná horní lišta (ta správná) -->
   <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
@@ -49,7 +49,6 @@ title: Procvičovač – procvičuj zábavně
               <li><a href="/matematika/stredni/">Střední škola</a></li>
             </ul>
           </li>
-          <!-- Pokud chceš IT i s podkategorii, přidej tady (nebo smaž) -->
           <li class="has-submenu">
             <a href="/it/" class="menu-title">IT</a>
             <ul class="submenu">
@@ -63,7 +62,7 @@ title: Procvičovač – procvičuj zábavně
       </nav>
     </aside>
 
-    <!-- Hlavní obsah – roztáhlý -->
+    <!-- Hlavní obsah -->
     <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
       <p>Vyber si předmět v levém menu a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
@@ -77,6 +76,39 @@ title: Procvičovač – procvičuj zábavně
 </div>
 
 <style>
+  /* === TO NEJDŮLEŽITĚJŠÍ – SKRYJE STARÝ DUPLICI HEADER === */
+  .site-header,
+  .header,
+  .post-header,
+  .page-header,
+  header[role="banner"],
+  #site-header,
+  nav[role="navigation"],
+  .banner,
+  .masthead,
+  .site-title {
+    display: none !important;
+  }
+
+  /* Zajistí, že tvůj header zůstane nahoře */
+  .top-bar {
+    display: flex !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+
+  /* Posune obsah dolů, aby nebyl překrytý */
+  .content-area,
+  main,
+  .main-content {
+    margin-top: 75px !important;
+  }
+
+  /* Tvé původní styly (zůstávají stejné) */
   :root {
     --bg: #f8f9fa;
     --text: #1f2937;
@@ -85,7 +117,6 @@ title: Procvičovač – procvičuj zábavně
     --sidebar-hover: #e2e8f0;
     --accent: #64748b;
   }
-
   body.dark {
     --bg: #0f172a;
     --text: #e2e8f0;
@@ -94,23 +125,16 @@ title: Procvičovač – procvičuj zábavně
     --sidebar-hover: #334155;
     --accent: #94a3b8;
   }
-
   body {
     background: var(--bg);
     color: var(--text);
     margin: 0;
     font-family: system-ui, -apple-system, sans-serif;
   }
-
   .top-bar {
     background: var(--header-bg);
     padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
-
   .container {
     max-width: 1600px;
     margin: 0 auto;
@@ -119,20 +143,17 @@ title: Procvičovač – procvičuj zábavně
     justify-content: space-between;
     align-items: center;
   }
-
   .logo {
     font-size: 1.9rem;
     font-weight: bold;
     color: var(--text);
     text-decoration: none;
   }
-
   .right-controls {
     display: flex;
     align-items: center;
     gap: 1.5rem;
   }
-
   .mode-btn {
     background: none;
     border: none;
@@ -140,7 +161,6 @@ title: Procvičovač – procvičuj zábavně
     cursor: pointer;
     color: var(--text);
   }
-
   .profile-btn {
     background: var(--accent);
     color: white;
@@ -149,12 +169,10 @@ title: Procvičovač – procvičuj zábavně
     text-decoration: none;
     font-size: 0.95rem;
   }
-
   .content-area {
     display: flex;
     min-height: calc(100vh - 65px);
   }
-
   .sidebar {
     width: 260px;
     background: var(--sidebar-bg);
@@ -165,13 +183,11 @@ title: Procvičovač – procvičuj zábavně
     height: calc(100vh - 65px);
     overflow-y: auto;
   }
-
   .menu {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-
   .menu-title {
     display: block;
     padding: 0.9rem 1rem;
@@ -181,12 +197,10 @@ title: Procvičovač – procvičuj zábavně
     text-decoration: none;
     border-radius: 6px;
   }
-
   .menu-title:hover,
   .has-submenu.active > .menu-title {
     background: var(--sidebar-hover);
   }
-
   .submenu {
     list-style: none;
     padding: 0.5rem 0 0.5rem 1.5rem;
@@ -195,11 +209,9 @@ title: Procvičovač – procvičuj zábavně
     overflow: hidden;
     transition: max-height 0.35s ease;
   }
-
   .has-submenu.active .submenu {
     max-height: 600px;
   }
-
   .submenu li a {
     display: block;
     padding: 0.7rem 1rem;
@@ -208,11 +220,9 @@ title: Procvičovač – procvičuj zábavně
     border-radius: 6px;
     font-size: 0.95rem;
   }
-
   .submenu li a:hover {
     background: var(--sidebar-hover);
   }
-
   .main-content {
     flex: 1;
     padding: 4rem 3rem;
@@ -220,10 +230,8 @@ title: Procvičovač – procvičuj zábavně
     margin: 0 auto;
     width: 100%;
   }
-
   h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
   p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
-
   .teaser-box {
     margin-top: 4rem;
     text-align: center;
@@ -232,7 +240,6 @@ title: Procvičovač – procvičuj zábavně
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   }
-
   .start-btn {
     background: var(--accent);
     color: white;
@@ -243,7 +250,6 @@ title: Procvičovač – procvičuj zábavně
     display: inline-block;
     margin-top: 1.5rem;
   }
-
   @media (max-width: 992px) {
     .content-area { flex-direction: column; }
     .sidebar {
