@@ -3,220 +3,134 @@ layout: default
 title: Procvičovač – procvičuj zábavně
 ---
 
-<div class="page">
-  <div class="navbar">
-    <a href="/" class="logo">Procvičovač</a>
-    <div class="nav-right">
-      <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
-      <a href="#" class="profile-btn">Přihlásit se / Profil</a>
+<div class="layout-wrapper">
+  <!-- Tvá jediná horní lišta -->
+  <header class="top-bar">
+    <div class="container">
+      <a href="/" class="logo">Procvičovač</a>
+      
+      <div class="right-controls">
+        <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
+        <a href="#" class="profile-btn">Přihlásit se / Profil</a>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <main class="container">
-    <div class="card">
+  <!-- Obsah: sidebar s předměty + hlavní plocha -->
+  <div class="content-area">
+    <!-- Levý sidebar s rozbalovacími předměty -->
+    <aside class="sidebar">
+      <nav>
+        <ul class="menu">
+          <li class="has-submenu">
+            <a href="/cestina/" class="menu-title">Čeština</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/cestina/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/cestina/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a href="/anglictina/" class="menu-title">Angličtina</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/anglictina/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/anglictina/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a href="/matika/" class="menu-title">Matika</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/matika/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/matika/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a href="/it/" class="menu-title">IT</a>
+            <ul class="submenu">
+              {% for i in (1..9) %}
+                <li><a href="/it/{{ i }}.trida/">{{ i }}. třída</a></li>
+              {% endfor %}
+              <li><a href="/it/stredni/">Střední škola</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Hlavní obsah – úvod -->
+    <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
-      <p class="instruction">Vyber si předmět a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
-
-      <div class="subject-grid">
-        <a href="/cestina/" class="subject-card">
-          <span class="subject-title">Čeština</span>
-          <span class="subject-desc">i/y, abeceda, slovní zásoba</span>
-        </a>
-        <a href="/matematika/" class="subject-card">
-          <span class="subject-title">Matematika</span>
-          <span class="subject-desc">počítání, logika, slovní úlohy</span>
-        </a>
-        <a href="/anglictina/" class="subject-card">
-          <span class="subject-title">Angličtina</span>
-          <span class="subject-desc">slovíčka, gramatika, fráze</span>
-        </a>
-        <a href="/it/" class="subject-card">
-          <span class="subject-title">IT</span>
-          <span class="subject-desc">základy informatiky a digitální svět</span>
-        </a>
-      </div>
-
-      <div class="cta">
-        <h2>Začni hned s češtinou</h2>
-        <a href="/cestina/" class="start-btn">Přejít na češtinu</a>
-      </div>
-    </div>
-  </main>
+      <p>Vyber předmět v menu vlevo a začni procvičovat.</p>
+    </main>
+  </div>
 </div>
 
 <style>
-  .site-header,
-  .header,
-  .post-header,
-  .page-header,
-  header[role="banner"],
-  #site-header,
-  nav[role="navigation"],
-  .banner,
-  .masthead,
-  .site-title {
-    display: none !important;
-  }
+  /* Skryje defaultní Minima header */
+  .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
 
-  :root {
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --primary: #2563eb;
-    --muted: #64748b;
-    --line: #e5e7eb;
-    --shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-  }
+  /* Tvá lišta nahoře */
+  .top-bar { position: fixed; top: 0; width: 100%; z-index: 9999; background: #e5e7eb; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
 
-  body.dark {
-    --bg: #0f172a;
-    --card: #111827;
-    --primary: #60a5fa;
-    --muted: #cbd5f5;
-    --line: #1f2937;
-    --shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
-  }
+  .content-area { margin-top: 75px; display: flex; min-height: calc(100vh - 75px); }
 
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: #0f172a;
-  }
+  :root { --bg: #f8f9fa; --text: #1f2937; --header-bg: #e5e7eb; --sidebar-bg: #f1f5f9; --accent: #64748b; --sidebar-hover: #e2e8f0; }
 
-  body.dark {
-    color: #e2e8f0;
-  }
+  body.dark { --bg: #0f172a; --text: #e2e8f0; --header-bg: #1e293b; --sidebar-bg: #1e293b; --accent: #94a3b8; --sidebar-hover: #334155; }
 
-  .page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+  body { background: var(--bg); color: var(--text); margin: 0; font-family: system-ui; }
 
-  .navbar {
-    background: var(--card);
-    border-bottom: 1px solid var(--line);
-    padding: 0.8rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
+  .container { max-width: 1600px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
 
-  .logo {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: var(--primary);
-    text-decoration: none;
-  }
+  .logo { font-size: 1.9rem; font-weight: bold; color: var(--text); text-decoration: none; }
 
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+  .right-controls { display: flex; gap: 1.5rem; }
 
-  .profile-btn {
-    text-decoration: none;
-    color: var(--muted);
-    font-weight: 600;
-  }
+  .mode-btn { background: none; border: none; font-size: 1.7rem; cursor: pointer; color: var(--text); }
 
-  .mode-btn {
-    border: none;
-    background: transparent;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
+  .profile-btn { background: var(--accent); color: white; padding: 0.55rem 1.1rem; border-radius: 6px; text-decoration: none; }
 
-  .container {
-    max-width: 1000px;
-    margin: 2.5rem auto;
-    padding: 0 1.5rem;
-    width: 100%;
-  }
+  .sidebar { width: 260px; background: var(--sidebar-bg); padding: 2rem 1rem; position: sticky; top: 75px; height: calc(100vh - 75px); overflow-y: auto; border-right: 1px solid var(--accent); }
 
-  .card {
-    background: var(--card);
-    padding: 2.5rem;
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-  }
+  .menu { list-style: none; padding: 0; margin: 0; }
 
-  h1 {
-    margin-top: 0;
-    font-size: 2.4rem;
-  }
+  .menu-title { display: block; padding: 0.9rem 1rem; font-size: 1.15rem; font-weight: 600; color: var(--text); text-decoration: none; border-radius: 6px; }
 
-  .instruction {
-    color: var(--muted);
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
+  .menu-title:hover { background: var(--sidebar-hover); }
 
-  .subject-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
+  .submenu { list-style: none; padding: 0.5rem 0 0.5rem 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
 
-  .subject-card {
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 1.2rem 1.4rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    background: rgba(148, 163, 184, 0.08);
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
+  .has-submenu.active .submenu { max-height: 600px; }
 
-  .subject-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--primary);
-  }
+  .submenu li a { display: block; padding: 0.7rem 1rem; color: var(--text); text-decoration: none; border-radius: 6px; font-size: 0.95rem; }
 
-  .subject-title {
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
+  .submenu li a:hover { background: var(--sidebar-hover); }
 
-  .subject-desc {
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
+  .main-content { flex: 1; padding: 4rem 3rem; max-width: 1200px; margin: 0 auto; width: 100%; }
 
-  .cta {
-    margin-top: 2.5rem;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 16px;
-    background: rgba(37, 99, 235, 0.08);
-  }
+  h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
+  p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
 
-  .cta h2 {
-    margin-top: 0;
-  }
-
-  .start-btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.8rem 2rem;
-    border-radius: 10px;
-    background: var(--primary);
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-  }
+  @media (max-width: 992px) { .content-area { flex-direction: column; } .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem; } .main-content { padding: 2.5rem 1.5rem; } }
 </style>
 
 <script>
+  // Rozbalování submenu
+  document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
+    title.addEventListener('click', function(e) {
+      e.preventDefault();
+      this.parentElement.classList.toggle('active');
+    });
+  });
+
+  // Dark/light mód
   const toggle = document.getElementById('mode-toggle');
-  if (localStorage.getItem('mode') === 'dark' ||
+  if (localStorage.getItem('mode') === 'dark' || 
       (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.body.classList.add('dark');
     toggle.textContent = '🌙';
