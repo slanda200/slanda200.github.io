@@ -1,0 +1,15 @@
+{
+  "type": "match",
+  "title": "Cvičení 2 – Spoj slova (1. třída – čeština)",
+  "instruction": "Klikni na slovo vlevo a pak na správné slovo vpravo. Každé slovo můžeš použít jen jednou.",
+  "leftTitle": "Slovo",
+  "rightTitle": "Počet slabik",
+  "pairs": [
+    { "left": "ma-ma", "right": "2" },
+    { "left": "pes", "right": "1" },
+    { "left": "ko-lo", "right": "2" },
+    { "left": "do-mov", "right": "2" },
+    { "left": "slun-ce", "right": "2" }
+  ],
+  "shuffle": true
+}
