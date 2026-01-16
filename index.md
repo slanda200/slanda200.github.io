@@ -4,7 +4,7 @@ title: Procvičovač – procvičuj zábavně
 ---
 
 <div class="layout-wrapper">
-  <!-- Tvá jediná horní lišta -->
+  <!-- Horní bar – full-width, začíná vlevo -->
   <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
@@ -16,9 +16,9 @@ title: Procvičovač – procvičuj zábavně
     </div>
   </header>
 
-  <!-- Obsah: sidebar s předměty + hlavní plocha -->
+  <!-- Obsah: sidebar + hlavní plocha -->
   <div class="content-area">
-    <!-- Levý sidebar s rozbalovacími předměty -->
+    <!-- Levý sidebar – začíná úplně vlevo -->
     <aside class="sidebar">
       <nav>
         <ul class="menu">
@@ -41,12 +41,12 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="/matika/" class="menu-title">Matika</a>
+            <a href="/matematika/" class="menu-title">Matematika</a>
             <ul class="submenu">
               {% for i in (1..9) %}
-                <li><a href="/matika/{{ i }}.trida/">{{ i }}. třída</a></li>
+                <li><a href="/matematika/{{ i }}.trida/">{{ i }}. třída</a></li>
               {% endfor %}
-              <li><a href="/matika/stredni/">Střední škola</a></li>
+              <li><a href="/matematika/stredni/">Střední škola</a></li>
             </ul>
           </li>
           <li class="has-submenu">
@@ -62,22 +62,28 @@ title: Procvičovač – procvičuj zábavně
       </nav>
     </aside>
 
-    <!-- Hlavní obsah – úvod -->
+    <!-- Hlavní obsah – roztáhlý, začíná vlevo -->
     <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
-      <p>Vyber předmět v menu vlevo a začni procvičovat.</p>
+      <p>Vyber si předmět v menu vlevo a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
+
+      <div class="teaser-box">
+        <h2>Začni hned s češtinou</h2>
+        <a href="/cestina/" class="start-btn">Přejít na češtinu</a>
+      </div>
     </main>
   </div>
 </div>
 
 <style>
-  /* Skryje defaultní Minima header */
+  /* Skrýt defaultní Minima header */
   .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
 
-  /* Tvá lišta nahoře */
-  .top-bar { position: fixed; top: 0; width: 100%; z-index: 9999; background: #e5e7eb; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+  /* Horní bar – full-width, bez mezer vlevo */
+  .top-bar { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: var(--header-bg); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
 
-  .content-area { margin-top: 75px; display: flex; min-height: calc(100vh - 75px); }
+  /* Obsah – začíná vlevo */
+  .content-area { margin-top: 75px; display: flex; min-height: calc(100vh - 75px); padding: 0; margin: 0; }
 
   :root { --bg: #f8f9fa; --text: #1f2937; --header-bg: #e5e7eb; --sidebar-bg: #f1f5f9; --accent: #64748b; --sidebar-hover: #e2e8f0; }
 
@@ -85,7 +91,7 @@ title: Procvičovač – procvičuj zábavně
 
   body { background: var(--bg); color: var(--text); margin: 0; font-family: system-ui; }
 
-  .container { max-width: 1600px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .container { max-width: 100%; margin: 0; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
 
   .logo { font-size: 1.9rem; font-weight: bold; color: var(--text); text-decoration: none; }
 
@@ -95,7 +101,7 @@ title: Procvičovač – procvičuj zábavně
 
   .profile-btn { background: var(--accent); color: white; padding: 0.55rem 1.1rem; border-radius: 6px; text-decoration: none; }
 
-  .sidebar { width: 260px; background: var(--sidebar-bg); padding: 2rem 1rem; position: sticky; top: 75px; height: calc(100vh - 75px); overflow-y: auto; border-right: 1px solid var(--accent); }
+  .sidebar { width: 260px; background: var(--sidebar-bg); padding: 2rem 0; position: sticky; top: 75px; height: calc(100vh - 75px); overflow-y: auto; border-right: 1px solid var(--accent); margin: 0; left: 0; }
 
   .menu { list-style: none; padding: 0; margin: 0; }
 
@@ -103,7 +109,7 @@ title: Procvičovač – procvičuj zábavně
 
   .menu-title:hover { background: var(--sidebar-hover); }
 
-  .submenu { list-style: none; padding: 0.5rem 0 0.5rem 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .submenu { list-style: none; padding: 0.5rem 0 0.5rem 1rem; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
 
   .has-submenu.active .submenu { max-height: 600px; }
 
@@ -111,12 +117,16 @@ title: Procvičovač – procvičuj zábavně
 
   .submenu li a:hover { background: var(--sidebar-hover); }
 
-  .main-content { flex: 1; padding: 4rem 3rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .main-content { flex: 1; padding: 4rem 1rem; max-width: 100%; margin: 0; width: 100%; }
 
   h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
   p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
 
-  @media (max-width: 992px) { .content-area { flex-direction: column; } .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem; } .main-content { padding: 2.5rem 1.5rem; } }
+  .teaser-box { margin-top: 4rem; text-align: center; padding: 2.5rem; background: var(--sidebar-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+
+  .start-btn { background: var(--accent); color: white; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-size: 1.25rem; display: inline-block; margin-top: 1.5rem; }
+
+  @media (max-width: 992px) { .content-area { flex-direction: column; } .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem 0; } .main-content { padding: 2.5rem 1rem; } }
 </style>
 
 <script>
