@@ -3,44 +3,33 @@ layout: default
 title: Procvičovač – procvičuj zábavně
 ---
 
-<div class="layout-wrapper" style="background-image: url('/images/pozadi.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
-  <!-- Horní lišta – viditelně označená -->
-  <header class="top-bar">
-    <div class="container">
-      <a href="/" class="logo">Procvičovač</a>
-      
-      <div class="right-controls">
-        <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
-        <a href="#" class="profile-btn">Přihlásit se / Profil</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hlavní obsah – pod lištou -->
-  <div class="content-area">
-    <main class="main-content">
-      <h1>Vítej v Procvičovači!</h1>
-      <p>Vyber si předmět v menu vlevo a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
-    </main>
-  </div>
-</div>
-
 <style>
-  /* Skrýt defaultní šedý header */
-  .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-image: url('/images/pozadi.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
-  /* Horní lišta – výrazně označená */
+  /* Skryje defaultní header od Minima */
+  .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header {
+    display: none !important;
+  }
+
+  /* Horní lišta – průhledná, černá čára dole */
   .top-bar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(30, 41, 59, 0.92); /* tmavě modrošedá, viditelná na pozadí */
-    backdrop-filter: blur(12px); /* rozostření pro moderní vzhled */
-    border-bottom: 2px solid #64748b; /* modrý okraj dole */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4); /* silnější stín */
-    padding: 1rem 0;
+    background: rgba(0,0,0,0.4);  /* průhledná černá */
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid black;  /* černá oddělovací čára */
+    padding: 0.8rem 0;
   }
 
   .container {
@@ -53,11 +42,10 @@ title: Procvičovač – procvičuj zábavně
   }
 
   .logo {
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: bold;
     color: white;
     text-decoration: none;
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
   }
 
   .right-controls {
@@ -69,31 +57,25 @@ title: Procvičovač – procvičuj zábavně
   .mode-btn {
     background: none;
     border: none;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     cursor: pointer;
     color: white;
   }
 
   .profile-btn {
-    background: #64748b;
+    background: rgba(100,116,139,0.7);
     color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
     text-decoration: none;
-    font-weight: 500;
   }
 
-  /* Obsah – pod lištou */
+  /* Obsah – začíná pod lištou */
   .content-area {
-    margin-top: 80px; /* přesně pod lištou */
+    margin-top: 65px;
     padding: 2rem;
-  }
-
-  .main-content {
     color: white;
     text-shadow: 1px 1px 3px black;
-    max-width: 900px;
-    margin: 0 auto;
   }
 
   h1 {
@@ -103,15 +85,26 @@ title: Procvičovač – procvičuj zábavně
 
   p {
     font-size: 1.4rem;
-    line-height: 1.6;
+    max-width: 800px;
   }
 </style>
 
-<script>
-  // Dark/light mód (pokud ho chceš)
-  const toggle = document.getElementById('mode-toggle');
-  toggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    toggle.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
-  });
-</script>
+<div class="layout-wrapper">
+  <!-- Horní lišta -->
+  <header class="top-bar">
+    <div class="container">
+      <a href="/" class="logo">Procvičovač</a>
+      
+      <div class="right-controls">
+        <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
+        <a href="#" class="profile-btn">Přihlásit se / Profil</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Obsah -->
+  <div class="content-area">
+    <h1>Vítej v Procvičovači!</h1>
+    <p>Vyber si předmět v menu vlevo a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
+  </div>
+</div>
