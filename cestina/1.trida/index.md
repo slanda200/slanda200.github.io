@@ -3,22 +3,16 @@ layout: default
 title: Čeština – 1. třída
 ---
 
-<div class="layout-wrapper">
-  <!-- Horní lišta s mode toggle a přihlášením -->
-  <header class="top-bar">
-    <div class="container">
-      <a href="/" class="logo">Procvičovač</a>
-      
-      <div class="right-controls">
-        <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
-        <a href="#" class="profile-btn">Přihlásit se / Profil</a>
-      </div>
+<div class="page">
+  <header class="navbar">
+    <a href="/" class="logo">Procvičovač</a>
+    <div class="nav-right">
+      <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
+      <a href="#" class="profile-btn">Přihlásit se / Profil</a>
     </div>
   </header>
 
-  <!-- Obsah: sidebar s tématy + hlavní plocha -->
-  <div class="content-area">
-    <!-- Levý sidebar s tématy (s ikonami a box stylem) -->
+  <div class="layout">
     <aside class="sidebar">
       <nav>
         <ul class="menu">
@@ -28,27 +22,25 @@ title: Čeština – 1. třída
           <li><a href="/cestina/1.trida/doplnovani-textu/" class="menu-title">✏️ Doplňování do textu</a></li>
           <li><a href="/cestina/1.trida/zaskrtavani/" class="menu-title">✅ Zaškrtávání</a></li>
           <li><a href="/cestina/1.trida/spojovani/" class="menu-title">🔗 Spojování</a></li>
-          <!-- Přidej další témata s ikonami -->
         </ul>
       </nav>
     </aside>
 
-    <!-- Hlavní obsah – úvod do třídy -->
-    <main class="main-content">
-      <h1>Čeština – 1. třída</h1>
-      <p>Zde procvičuj základní češtinu pro 1. třídu. Vyber téma v levém menu a začni s úlohami!</p>
+    <main class="content">
+      <div class="card">
+        <h1>Čeština – 1. třída</h1>
+        <p class="instruction">Zde procvičuj základní češtinu pro 1. třídu. Vyber téma v levém menu a začni s úlohami!</p>
 
-      <!-- Teaser na první téma -->
-      <div class="teaser-box">
-        <h2>Začni s abecedou</h2>
-        <a href="/cestina/1.trida/abeceda/" class="start-btn">Přejít na úlohy</a>
+        <div class="cta">
+          <h2>Začni s abecedou</h2>
+          <a href="/cestina/1.trida/abeceda/" class="start-btn">Přejít na úlohy</a>
+        </div>
       </div>
     </main>
   </div>
 </div>
 
 <style>
-  /* === DEFINITIVNĚ SKRYJE DEFAULTNÍ MINIMA HEADER (to samé jako na hlavní stránce) === */
   .site-header,
   .header,
   .post-header,
@@ -62,182 +54,186 @@ title: Čeština – 1. třída
     display: none !important;
   }
 
-  /* Zajistí, že tvůj header zůstane nahoře */
-  .top-bar {
-    display: flex !important;
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  }
-
-  /* Posune obsah dolů, aby nebyl překrytý */
-  .content-area,
-  main,
-  .main-content {
-    margin-top: 75px !important;
-  }
-
-  /* Tvé původní styly (zůstávají stejné) */
   :root {
-    --bg: #f8f9fa;
-    --text: #1f2937;
-    --header-bg: #e5e7eb;
-    --sidebar-bg: #f1f5f9;
-    --sidebar-hover: #e2e8f0;
-    --accent: #64748b;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --primary: #2563eb;
+    --muted: #64748b;
+    --line: #e5e7eb;
+    --shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
   }
 
   body.dark {
     --bg: #0f172a;
-    --text: #e2e8f0;
-    --header-bg: #1e293b;
-    --sidebar-bg: #1e293b;
-    --sidebar-hover: #334155;
-    --accent: #94a3b8;
+    --card: #111827;
+    --primary: #60a5fa;
+    --muted: #cbd5f5;
+    --line: #1f2937;
+    --shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
   }
 
   body {
-    background: var(--bg);
-    color: var(--text);
     margin: 0;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: #0f172a;
   }
 
-  .top-bar {
-    background: var(--header-bg);
-    padding: 1rem 0;
+  body.dark {
+    color: #e2e8f0;
   }
 
-  .container {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 2rem;
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    padding: 0.8rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .logo {
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: var(--text);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
     text-decoration: none;
   }
 
-  .right-controls {
+  .nav-right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-  }
-
-  .mode-btn {
-    background: none;
-    border: none;
-    font-size: 1.7rem;
-    cursor: pointer;
-    color: var(--text);
+    gap: 1rem;
   }
 
   .profile-btn {
-    background: var(--accent);
-    color: white;
-    padding: 0.55rem 1.1rem;
-    border-radius: 6px;
     text-decoration: none;
-    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 600;
   }
 
-  .content-area {
+  .mode-btn {
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .layout {
     display: flex;
-    min-height: calc(100vh - 65px);
+    flex: 1;
+    min-height: calc(100vh - 64px);
   }
 
   .sidebar {
     width: 260px;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--accent);
-    padding: 2rem 1rem;
-    position: sticky;
-    top: 65px;
-    height: calc(100vh - 65px);
-    overflow-y: auto;
+    padding: 1.5rem 1rem;
+    background: var(--card);
+    border-right: 1px solid var(--line);
   }
 
   .menu {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
   }
 
   .menu-title {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.2rem;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text);
+    display: block;
+    padding: 0.85rem 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: inherit;
     text-decoration: none;
-    border-radius: 8px;
-    background: var(--sidebar-bg);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: all 0.3s;
+    border-radius: 10px;
+    background: rgba(148, 163, 184, 0.12);
+    transition: transform 0.2s ease, background 0.2s ease;
   }
 
   .menu-title:hover {
-    background: var(--sidebar-hover);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: rgba(37, 99, 235, 0.12);
+    color: var(--primary);
+    transform: translateY(-2px);
   }
 
-  .main-content {
+  .content {
     flex: 1;
-    padding: 4rem 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    max-width: 900px;
     width: 100%;
   }
 
-  h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
-  p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
+  h1 {
+    margin-top: 0;
+    font-size: 2.4rem;
+  }
 
-  .teaser-box {
-    margin-top: 4rem;
+  .instruction {
+    color: var(--muted);
+    font-size: 1.1rem;
+  }
+
+  .cta {
+    margin-top: 2.5rem;
     text-align: center;
-    padding: 2.5rem;
-    background: var(--sidebar-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 2rem;
+    border-radius: 16px;
+    background: rgba(37, 99, 235, 0.08);
+  }
+
+  .cta h2 {
+    margin-top: 0;
   }
 
   .start-btn {
-    background: var(--accent);
-    color: white;
-    padding: 1rem 2.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 1.25rem;
     display: inline-block;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
   }
 
   @media (max-width: 992px) {
-    .content-area { flex-direction: column; }
+    .layout {
+      flex-direction: column;
+    }
+
     .sidebar {
       width: 100%;
-      position: static;
-      height: auto;
       border-right: none;
-      border-bottom: 1px solid var(--accent);
-      padding: 1.5rem;
+      border-bottom: 1px solid var(--line);
     }
-    .main-content { padding: 2.5rem 1.5rem; }
+
+    .content {
+      padding: 2rem 1.5rem;
+    }
   }
 </style>
 
 <script>
-  // Dark/light mód
   const toggle = document.getElementById('mode-toggle');
   if (localStorage.getItem('mode') === 'dark' ||
       (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
