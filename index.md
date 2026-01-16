@@ -8,6 +8,7 @@ title: Procvičovač – procvičuj zábavně
   <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
+      
       <div class="right-controls">
         <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
         <a href="#" class="profile-btn">Přihlásit se / Profil</a>
@@ -15,14 +16,14 @@ title: Procvičovač – procvičuj zábavně
     </div>
   </header>
 
-  <!-- Obsah: sidebar + hlavní plocha -->
+  <!-- Obsah -->
   <div class="content-area">
-    <!-- Sidebar vlevo -->
+    <!-- Sidebar – kratší a níž -->
     <aside class="sidebar">
       <nav>
         <ul class="menu">
           <li class="has-submenu">
-            <a href="#" class="menu-title">Čeština</a>
+            <a href="/cestina/" class="menu-title">Čeština</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/cestina/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -31,7 +32,7 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="#" class="menu-title">Angličtina</a>
+            <a href="/anglictina/" class="menu-title">Angličtina</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/anglictina/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -40,7 +41,7 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="#" class="menu-title">Matematika</a>
+            <a href="/matematika/" class="menu-title">Matematika</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/matematika/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -49,7 +50,7 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="#" class="menu-title">IT</a>
+            <a href="/it/" class="menu-title">IT</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/it/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -61,7 +62,7 @@ title: Procvičovač – procvičuj zábavně
       </nav>
     </aside>
 
-    <!-- Hlavní obsah – čistý a jednoduchý -->
+    <!-- Hlavní obsah -->
     <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
       <p>Vyber si předmět v menu vlevo a začni procvičovat.</p>
@@ -70,10 +71,10 @@ title: Procvičovač – procvičuj zábavně
 </div>
 
 <style>
-  /* Skrýt defaultní header */
+  /* Skryje defaultní header */
   .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
 
-  /* Horní bar – full-width, bez mezer */
+  /* Horní bar – bez překryvu */
   .top-bar {
     position: fixed;
     top: 0;
@@ -85,13 +86,12 @@ title: Procvičovač – procvičuj zábavně
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
 
-  /* Obsah – sidebar vlevo bez mezer */
+  /* Obsah – sidebar začíná pod horní lištou */
   .content-area {
-    margin-top: 65px;
+    margin-top: 65px; /* přesně pod horní lištou */
     display: flex;
     min-height: calc(100vh - 65px);
     padding: 0;
-    margin: 0;
   }
 
   :root {
@@ -156,14 +156,14 @@ title: Procvičovač – procvičuj zábavně
     text-decoration: none;
   }
 
+  /* Sidebar – kratší, začíná níž a končí dříve */
   .sidebar {
     width: 260px;
     background: var(--sidebar-bg);
     padding: 2rem 0.8rem;
     margin-left: 0;
-    position: sticky;
-    top: 65px;
-    height: calc(100vh - 65px);
+    margin-top: 1rem; /* o něco níž */
+    height: calc(100vh - 100px); /* kratší než celá stránka */
     overflow-y: auto;
     border-right: 1px solid var(--accent);
   }
@@ -227,33 +227,33 @@ title: Procvičovač – procvičuj zábavně
 
   @media (max-width: 992px) {
     .content-area { flex-direction: column; }
-    .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem 0; }
+    .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem 0; margin-top: 0; }
     .main-content { padding: 2.5rem 1rem; }
   }
 </style>
 
 <script>
-  // Rozbalování submenu
-  document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
-    title.addEventListener('click', function(e) {
-      e.preventDefault();
-      this.parentElement.classList.toggle('active');
-    });
+// Rozbalování submenu
+document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
+  title.addEventListener('click', function(e) {
+    e.preventDefault();
+    this.parentElement.classList.toggle('active');
   });
+});
 
-  // Dark/light mód
-  const toggle = document.getElementById('mode-toggle');
-  if (localStorage.getItem('mode') === 'dark' || 
-      (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.body.classList.add('dark');
-    toggle.textContent = '🌙';
-  } else {
-    toggle.textContent = '🌞';
-  }
+// Dark/light mód
+const toggle = document.getElementById('mode-toggle');
+if (localStorage.getItem('mode') === 'dark' || 
+    (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.body.classList.add('dark');
+  toggle.textContent = '🌙';
+} else {
+  toggle.textContent = '🌞';
+}
 
-  toggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    toggle.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
-    localStorage.setItem('mode', document.body.classList.contains('dark') ? 'dark' : 'light');
-  });
+toggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  toggle.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+  localStorage.setItem('mode', document.body.classList.contains('dark') ? 'dark' : 'light');
+});
 </script>
