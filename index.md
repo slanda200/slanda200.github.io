@@ -3,8 +3,8 @@ layout: default
 title: Procvičovač – procvičuj zábavně
 ---
 
-<div class="layout-wrapper">
-  <!-- Horní lišta -->
+<div class="layout-wrapper" style="background-image: url('/images/pozadi.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
+  <!-- Horní lišta (poloprůhledná, aby byl vidět background) -->
   <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
@@ -16,9 +16,9 @@ title: Procvičovač – procvičuj zábavně
     </div>
   </header>
 
-  <!-- Obsah -->
+  <!-- Obsah – sidebar + hlavní plocha -->
   <div class="content-area">
-    <!-- Sidebar – kratší a níž -->
+    <!-- Sidebar vlevo -->
     <aside class="sidebar">
       <nav>
         <ul class="menu">
@@ -65,195 +65,93 @@ title: Procvičovač – procvičuj zábavně
     <!-- Hlavní obsah -->
     <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
-      <p>Vyber si předmět v menu vlevo a začni procvičovat.</p>
+      <p>Vyber si předmět v menu vlevo a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
     </main>
   </div>
 </div>
 
 <style>
-  /* Skryje defaultní header */
+  /* Skryje defaultní Minima header */
   .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
 
-  /* Horní bar – bez překryvu */
+  /* Horní lišta – poloprůhledná, aby byl vidět background */
   .top-bar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: var(--header-bg);
+    background: rgba(229, 231, 235, 0.85); /* poloprůhledná šedá */
+    backdrop-filter: blur(8px); /* rozostření pro moderní vzhled */
     padding: 0.8rem 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
 
-  /* Obsah – sidebar začíná pod horní lištou */
+  /* Obsah – sidebar a hlavní část */
   .content-area {
-    margin-top: 65px; /* přesně pod horní lištou */
+    margin-top: 65px;
     display: flex;
     min-height: calc(100vh - 65px);
-    padding: 0;
   }
 
-  :root {
-    --bg: #f8f9fa;
-    --text: #1f2937;
-    --header-bg: #e5e7eb;
-    --sidebar-bg: #f1f5f9;
-    --accent: #64748b;
-    --sidebar-hover: #e2e8f0;
-  }
-
-  body.dark {
-    --bg: #0f172a;
-    --text: #e2e8f0;
-    --header-bg: #1e293b;
-    --sidebar-bg: #1e293b;
-    --accent: #94a3b8;
-    --sidebar-hover: #334155;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    margin: 0;
-    font-family: system-ui, sans-serif;
-  }
-
-  .container {
-    max-width: 100%;
-    margin: 0;
-    padding: 0 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo {
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .right-controls {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .mode-btn {
-    background: none;
-    border: none;
-    font-size: 1.7rem;
-    cursor: pointer;
-    color: var(--text);
-  }
-
-  .profile-btn {
-    background: var(--accent);
-    color: white;
-    padding: 0.55rem 1.1rem;
-    border-radius: 6px;
-    text-decoration: none;
-  }
-
-  /* Sidebar – kratší, začíná níž a končí dříve */
   .sidebar {
     width: 260px;
-    background: var(--sidebar-bg);
+    background: rgba(241, 245, 249, 0.9); /* poloprůhledná, aby byl vidět background */
+    backdrop-filter: blur(5px);
     padding: 2rem 0.8rem;
-    margin-left: 0;
-    margin-top: 1rem; /* o něco níž */
-    height: calc(100vh - 100px); /* kratší než celá stránka */
+    position: sticky;
+    top: 65px;
+    height: calc(100vh - 65px);
     overflow-y: auto;
-    border-right: 1px solid var(--accent);
-  }
-
-  .menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .menu-title {
-    display: block;
-    padding: 0.9rem 1rem;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text);
-    text-decoration: none;
-    border-radius: 6px;
-  }
-
-  .menu-title:hover,
-  .has-submenu.active > .menu-title {
-    background: var(--sidebar-hover);
-  }
-
-  .submenu {
-    list-style: none;
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-  }
-
-  .has-submenu.active .submenu {
-    max-height: 600px;
-  }
-
-  .submenu li a {
-    display: block;
-    padding: 0.7rem 1rem;
-    color: var(--text);
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 0.95rem;
-  }
-
-  .submenu li a:hover {
-    background: var(--sidebar-hover);
+    border-right: 1px solid rgba(0,0,0,0.1);
   }
 
   .main-content {
     flex: 1;
-    padding: 4rem 2rem 4rem 1rem;
-    max-width: 100%;
-    margin: 0;
+    padding: 4rem 2rem;
+    color: #1f2937; /* tmavší text kvůli pozadí */
   }
 
-  h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
-  p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
+  body.dark .main-content { color: #e2e8f0; }
+  body.dark .sidebar { background: rgba(30, 41, 59, 0.9); }
+  body.dark .top-bar { background: rgba(30, 41, 59, 0.85); }
 
-  @media (max-width: 992px) {
-    .content-area { flex-direction: column; }
-    .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem 0; margin-top: 0; }
-    .main-content { padding: 2.5rem 1rem; }
-  }
+  /* Zbytek tvých stylů (menu, barvy atd.) */
+  :root { --bg: transparent; --text: #1f2937; --header-bg: transparent; --sidebar-bg: transparent; --accent: #64748b; --sidebar-hover: rgba(226, 232, 240, 0.5); }
+  body.dark { --text: #e2e8f0; --sidebar-hover: rgba(51, 65, 85, 0.5); }
+
+  /* Tvé původní menu styly */
+  .menu { list-style: none; padding: 0; margin: 0; }
+  .menu-title { display: block; padding: 0.9rem 1rem; font-size: 1.15rem; font-weight: 600; color: var(--text); text-decoration: none; border-radius: 6px; }
+  .menu-title:hover { background: var(--sidebar-hover); }
+  .submenu { list-style: none; padding: 0.5rem 0 0.5rem 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .has-submenu.active .submenu { max-height: 600px; }
+  .submenu li a { display: block; padding: 0.7rem 1rem; color: var(--text); text-decoration: none; border-radius: 6px; font-size: 0.95rem; }
+  .submenu li a:hover { background: var(--sidebar-hover); }
 </style>
 
 <script>
-// Rozbalování submenu
-document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
-  title.addEventListener('click', function(e) {
-    e.preventDefault();
-    this.parentElement.classList.toggle('active');
+  // Rozbalování submenu
+  document.querySelectorAll('.has-submenu > .menu-title').forEach(title => {
+    title.addEventListener('click', function(e) {
+      e.preventDefault();
+      this.parentElement.classList.toggle('active');
+    });
   });
-});
 
-// Dark/light mód
-const toggle = document.getElementById('mode-toggle');
-if (localStorage.getItem('mode') === 'dark' || 
-    (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-  document.body.classList.add('dark');
-  toggle.textContent = '🌙';
-} else {
-  toggle.textContent = '🌞';
-}
+  // Dark/light mód
+  const toggle = document.getElementById('mode-toggle');
+  if (localStorage.getItem('mode') === 'dark' || 
+      (!localStorage.getItem('mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.classList.add('dark');
+    toggle.textContent = '🌙';
+  } else {
+    toggle.textContent = '🌞';
+  }
 
-toggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  toggle.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
-  localStorage.setItem('mode', document.body.classList.contains('dark') ? 'dark' : 'light');
-});
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    toggle.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+    localStorage.setItem('mode', document.body.classList.contains('dark') ? 'dark' : 'light');
+  });
 </script>
