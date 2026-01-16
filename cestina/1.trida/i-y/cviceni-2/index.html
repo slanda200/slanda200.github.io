@@ -16,6 +16,17 @@
       --line: #e5e7eb;
     }
 
+    body.dark {
+      --bg: #0f172a;
+      --card: #111827;
+      --primary: #60a5fa;
+      --muted: #cbd5f5;
+      --success: #4ade80;
+      --error: #f87171;
+      --warning: #facc15;
+      --line: #1f2937;
+    }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -23,8 +34,12 @@
       color: #0f172a;
     }
 
+    body.dark {
+      color: #e2e8f0;
+    }
+
     .navbar {
-      background: white;
+      background: var(--card);
       border-bottom: 1px solid var(--line);
       padding: 0.8rem 1.5rem;
       display: flex;
@@ -43,6 +58,13 @@
       text-decoration: none;
       color: var(--muted);
       font-weight: 500;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
     .container {
@@ -190,6 +212,7 @@
   <div class="navbar">
     <a href="/" class="logo">Procvičovač</a>
     <div class="nav-right">
+      <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
       <a href="#">Přihlásit se</a>
     </div>
   </div>
@@ -238,6 +261,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // userPairs: [{leftId, rightId}]
   let userPairs = [];
+
+  const toggle = document.getElementById("mode-toggle");
+  if (localStorage.getItem("mode") === "dark" ||
+      (!localStorage.getItem("mode") && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+    document.body.classList.add("dark");
+    toggle.textContent = "🌙";
+  } else {
+    toggle.textContent = "🌞";
+  }
+
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    toggle.textContent = document.body.classList.contains("dark") ? "🌙" : "🌞";
+    localStorage.setItem("mode", document.body.classList.contains("dark") ? "dark" : "light");
+  });
 
   function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
