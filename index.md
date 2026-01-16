@@ -4,11 +4,10 @@ title: Procvičovač – procvičuj zábavně
 ---
 
 <div class="layout-wrapper">
-  <!-- Horní bar – bez mezer vlevo -->
+  <!-- Horní lišta -->
   <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
-      
       <div class="right-controls">
         <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
         <a href="#" class="profile-btn">Přihlásit se / Profil</a>
@@ -16,14 +15,14 @@ title: Procvičovač – procvičuj zábavně
     </div>
   </header>
 
-  <!-- Obsah: sidebar vlevo + hlavní plocha -->
+  <!-- Obsah: sidebar + hlavní plocha -->
   <div class="content-area">
-    <!-- Sidebar – začíná úplně vlevo -->
+    <!-- Sidebar vlevo -->
     <aside class="sidebar">
       <nav>
         <ul class="menu">
           <li class="has-submenu">
-            <a href="/cestina/" class="menu-title">Čeština</a>
+            <a href="#" class="menu-title">Čeština</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/cestina/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -32,7 +31,7 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="/anglictina/" class="menu-title">Angličtina</a>
+            <a href="#" class="menu-title">Angličtina</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/anglictina/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -41,7 +40,7 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="/matematika/" class="menu-title">Matematika</a>
+            <a href="#" class="menu-title">Matematika</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/matematika/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -50,7 +49,7 @@ title: Procvičovač – procvičuj zábavně
             </ul>
           </li>
           <li class="has-submenu">
-            <a href="/it/" class="menu-title">IT</a>
+            <a href="#" class="menu-title">IT</a>
             <ul class="submenu">
               {% for i in (1..9) %}
                 <li><a href="/it/{{ i }}.trida/">{{ i }}. třída</a></li>
@@ -62,24 +61,19 @@ title: Procvičovač – procvičuj zábavně
       </nav>
     </aside>
 
-    <!-- Hlavní obsah -->
+    <!-- Hlavní obsah – čistý a jednoduchý -->
     <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
-      <p>Vyber si předmět v menu vlevo a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
-
-      <div class="teaser-box">
-        <h2>Začni hned s češtinou</h2>
-        <a href="/cestina/" class="start-btn">Přejít na češtinu</a>
-      </div>
+      <p>Vyber si předmět v menu vlevo a začni procvičovat.</p>
     </main>
   </div>
 </div>
 
 <style>
-  /* Skrýt defaultní Minima header */
+  /* Skrýt defaultní header */
   .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
 
-  /* Horní bar – bez mezer vlevo */
+  /* Horní bar – full-width, bez mezer */
   .top-bar {
     position: fixed;
     top: 0;
@@ -91,13 +85,13 @@ title: Procvičovač – procvičuj zábavně
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
 
-  /* Obsah – začíná vlevo */
+  /* Obsah – sidebar vlevo bez mezer */
   .content-area {
-    margin-top: 65px;  /* přesně pod lištou */
+    margin-top: 65px;
     display: flex;
     min-height: calc(100vh - 65px);
     padding: 0;
-    margin-left: 0;
+    margin: 0;
   }
 
   :root {
@@ -165,7 +159,7 @@ title: Procvičovač – procvičuj zábavně
   .sidebar {
     width: 260px;
     background: var(--sidebar-bg);
-    padding: 2rem 0 2rem 0;  /* bez paddingu vlevo */
+    padding: 2rem 0.8rem;
     margin-left: 0;
     position: sticky;
     top: 65px;
@@ -223,45 +217,17 @@ title: Procvičovač – procvičuj zábavně
 
   .main-content {
     flex: 1;
-    padding: 4rem 2rem 4rem 1rem;  /* míň vlevo */
+    padding: 4rem 2rem 4rem 1rem;
     max-width: 100%;
     margin: 0;
-    width: 100%;
   }
 
   h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
   p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
 
-  .teaser-box {
-    margin-top: 4rem;
-    text-align: center;
-    padding: 2.5rem;
-    background: var(--sidebar-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  }
-
-  .start-btn {
-    background: var(--accent);
-    color: white;
-    padding: 1rem 2.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 1.25rem;
-    display: inline-block;
-    margin-top: 1.5rem;
-  }
-
   @media (max-width: 992px) {
     .content-area { flex-direction: column; }
-    .sidebar {
-      width: 100%;
-      position: static;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid var(--accent);
-      padding: 1.5rem 0;
-    }
+    .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem 0; }
     .main-content { padding: 2.5rem 1rem; }
   }
 </style>
