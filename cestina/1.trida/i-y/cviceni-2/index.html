@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Cvičení 2 – Procvičovač</title>
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --primary: #2563eb;
+      --muted: #64748b;
+      --success: #86efac;
+      --error: #fca5a5;
+      --warning: #fde68a;
+      --line: #e5e7eb;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: #0f172a;
+    }
+
+    .navbar {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-right a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    h1 { margin-top: 0; }
+
+    .instruction {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .col {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .col-header {
+      padding: 0.8rem 1rem;
+      background: #f1f5f9;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .list {
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .item {
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      user-select: none;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item small {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .item.selected {
+      outline: 3px solid var(--warning);
+      border-color: transparent;
+    }
+
+    .item.used {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .pairs {
+      margin-top: 1.2rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+
+    .pair-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .pill {
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: #f1f5f9;
+      border: 1px solid var(--line);
+      font-weight: 650;
+    }
+
+    .remove-btn {
+      margin-left: auto;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .actions {
+      margin-top: 1.2rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 1.4rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background: #334155;
+    }
+
+    #result {
+      margin-top: 1rem;
+      font-weight: 650;
+    }
+
+    .error-box {
+      margin-top: 0.6rem;
+      color: #991b1b;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <a href="/" class="logo">Procvičovač</a>
+    <div class="nav-right">
+      <a href="#">Přihlásit se</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h1 id="title">Načítám…</h1>
+      <p class="instruction" id="instruction"></p>
+
+      <div class="grid">
+        <div class="col">
+          <div class="col-header" id="leftTitle">Vlevo</div>
+          <div class="list" id="leftList"></div>
+        </div>
+
+        <div class="col">
+          <div class="col-header" id="rightTitle">Vpravo</div>
+          <div class="list" id="rightList"></div>
+        </div>
+      </div>
+
+      <div class="pairs">
+        <div style="font-weight:700; margin-bottom:0.6rem;">Tvoje spojení</div>
+        <div id="pairsList"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" onclick="checkAnswers()">Zkontrolovat</button>
+        <button class="btn secondary" onclick="resetAll()">Reset</button>
+      </div>
+
+      <div id="result"></div>
+      <div id="errors" class="error-box"></div>
+    </div>
+  </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  let data = null;
+  let leftItems = [];
+  let rightItems = [];
+
+  let selectedLeft = null;
+  let selectedRight = null;
+
+  // userPairs: [{leftId, rightId}]
+  let userPairs = [];
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  fetch("exercise.json")
+    .then(r => r.json())
+    .then(json => {
+      data = json;
+
+      document.getElementById("title").textContent = data.title || "Cvičení";
+      document.getElementById("instruction").textContent = data.instruction || "";
+      document.getElementById("leftTitle").textContent = data.leftTitle || "Vlevo";
+      document.getElementById("rightTitle").textContent = data.rightTitle || "Vpravo";
+
+      // vytvoř seznamy s ID, aby šlo bezpečně míchat
+      leftItems = data.pairs.map((p, idx) => ({ id: idx, text: p.left }));
+      rightItems = data.pairs.map((p, idx) => ({ id: idx, text: p.right }));
+
+      if (data.shuffle) {
+        leftItems = shuffle(leftItems);
+        rightItems = shuffle(rightItems);
+      }
+
+      renderLists();
+      renderPairs();
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("title").textContent = "Chyba při načítání cvičení";
+    });
+
+  function isLeftUsed(leftId) {
+    return userPairs.some(p => p.leftId === leftId);
+  }
+
+  function isRightUsed(rightId) {
+    return userPairs.some(p => p.rightId === rightId);
+  }
+
+  function renderLists() {
+    const leftList = document.getElementById("leftList");
+    const rightList = document.getElementById("rightList");
+
+    leftList.innerHTML = "";
+    rightList.innerHTML = "";
+
+    leftItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.textContent = item.text;
+
+      if (isLeftUsed(item.id)) div.classList.add("used");
+      if (selectedLeft === item.id) div.classList.add("selected");
+
+      div.onclick = () => {
+        if (isLeftUsed(item.id)) return;
+        selectedLeft = item.id;
+        renderLists();
+        tryMakePair();
+      };
+
+      leftList.appendChild(div);
+    });
+
+    rightItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `<span>${item.text}</span><small>klik</small>`;
+
+      if (isRightUsed(item.id)) div.classList.add("used");
+      if (selectedRight === item.id) div.classList.add("selected");
+
+      div.onclick = () => {
+        if (isRightUsed(item.id)) return;
+        selectedRight = item.id;
+        renderLists();
+        tryMakePair();
+      };
+
+      rightList.appendChild(div);
+    });
+  }
+
+  function tryMakePair() {
+    if (selectedLeft === null || selectedRight === null) return;
+
+    userPairs.push({ leftId: selectedLeft, rightId: selectedRight });
+
+    selectedLeft = null;
+    selectedRight = null;
+
+    document.getElementById("result").textContent = "";
+    document.getElementById("errors").innerHTML = "";
+
+    renderLists();
+    renderPairs();
+  }
+
+  function renderPairs() {
+    const box = document.getElementById("pairsList");
+    box.innerHTML = "";
+
+    userPairs.forEach((p, idx) => {
+      const leftText = (data.pairs[p.leftId] || {}).left;
+      const rightText = (data.pairs[p.rightId] || {}).right;
+
+      const row = document.createElement("div");
+      row.className = "pair-row";
+      row.innerHTML = `
+        <span class="pill">${leftText}</span>
+        <span style="font-weight:700;">→</span>
+        <span class="pill">${rightText}</span>
+        <button class="remove-btn" title="Zrušit" aria-label="Zrušit">✕</button>
+      `;
+
+      row.querySelector(".remove-btn").onclick = () => {
+        userPairs.splice(idx, 1);
+        renderLists();
+        renderPairs();
+        document.getElementById("result").textContent = "";
+        document.getElementById("errors").innerHTML = "";
+      };
+
+      box.appendChild(row);
+    });
+
+    if (userPairs.length === 0) {
+      box.innerHTML = `<div style="color: var(--muted);">Zatím nic nespojeno.</div>`;
+    }
+  }
+
+  window.checkAnswers = function() {
+    if (!data) return;
+
+    let correct = 0;
+    let errors = [];
+
+    // správná dvojice = leftId musí být spojené se stejným rightId
+    userPairs.forEach(p => {
+      if (p.leftId === p.rightId) {
+        correct++;
+      } else {
+        errors.push(`❌ <b>${data.pairs[p.leftId].left}</b> není <b>${data.pairs[p.rightId].right}</b>.`);
+      }
+    });
+
+    // nevyplněné
+    const missing = data.pairs.length - userPairs.length;
+    if (missing > 0) {
+      errors.unshift(`❗ Nejsou spojeny všechny dvojice. Chybí: ${missing}.`);
+    }
+
+    const percent = Math.round((correct / data.pairs.length) * 100);
+
+    document.getElementById("result").innerHTML =
+      `Výsledek: <b>${correct}</b> / <b>${data.pairs.length}</b> (${percent} %)`;
+
+    document.getElementById("errors").innerHTML = errors.join("<br>");
+  };
+
+  window.resetAll = function() {
+    userPairs = [];
+    selectedLeft = null;
+    selectedRight = null;
+    document.getElementById("result").textContent = "";
+    document.getElementById("errors").innerHTML = "";
+    renderLists();
+    renderPairs();
+  };
+
+});
+</script>
+
+</body>
+</html>
