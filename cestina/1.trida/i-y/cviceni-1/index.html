@@ -13,6 +13,18 @@
       --success: #86efac;
       --error: #fca5a5;
       --warning: #fde68a;
+      --line: #e5e7eb;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #111827;
+      --primary: #60a5fa;
+      --muted: #cbd5f5;
+      --success: #4ade80;
+      --error: #f87171;
+      --warning: #facc15;
+      --line: #1f2937;
     }
 
     body {
@@ -22,9 +34,13 @@
       color: #0f172a;
     }
 
+    body.dark {
+      color: #e2e8f0;
+    }
+
     .navbar {
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
       padding: 0.8rem 1.5rem;
       display: flex;
       justify-content: space-between;
@@ -42,6 +58,13 @@
       text-decoration: none;
       color: var(--muted);
       font-weight: 500;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
     .container {
@@ -123,6 +146,7 @@
 <div class="navbar">
   <a href="/" class="logo">Procvičovač</a>
   <div class="nav-right">
+    <button id="mode-toggle" class="mode-btn" title="Přepnout světlý / tmavý režim">🌞</button>
     <a href="#">Přihlásit se</a>
   </div>
 </div>
@@ -152,6 +176,21 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentBlank = null;
   let correctAnswers = [];
   let allOptions = [];
+
+  const toggle = document.getElementById("mode-toggle");
+  if (localStorage.getItem("mode") === "dark" ||
+      (!localStorage.getItem("mode") && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+    document.body.classList.add("dark");
+    toggle.textContent = "🌙";
+  } else {
+    toggle.textContent = "🌞";
+  }
+
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    toggle.textContent = document.body.classList.contains("dark") ? "🌙" : "🌞";
+    localStorage.setItem("mode", document.body.classList.contains("dark") ? "dark" : "light");
+  });
 
   fetch("exercise.json")
     .then(r => r.json())
