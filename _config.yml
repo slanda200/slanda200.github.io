@@ -1,19 +1,13 @@
 title: Procvičovač
-description: Procvičuj češtinu, angličtinu a matiku zábavně a zdarma
+description: Procvičuj češtinu, angličtinu, matiku a IT zábavně a zdarma
 theme: minima
 
-# Vypnutí defaultního headeru – už máš
-header_pages: []
+header_pages: []  # vypne defaultní header
 
-# Další užitečné nastavení (doporučuji přidat)
-baseurl: ""                     # prázdné, pokud stránka běží na hlavní doméně github.io
-url: "https://slanda200.github.io"  # tvá adresa – pomáhá s absolutními odkazy
-timezone: Europe/Prague         # pro správné datumy, pokud budeš používat blog/posty
-permalink: pretty               # hezčí URL (bez .html na konci)
+baseurl: ""  # prázdné pro github.io
+url: "https://slanda200.github.io"  # tvá adresa
+permalink: pretty  # hezčí URL bez .html
 
-# Pokud chceš vypnout některé Jekyll funkce, které nepotřebuješ
-exclude:
+exclude:  # vypne zbytečné soubory
   - Gemfile
   - Gemfile.lock
-  - node_modules
-  - vendor/
