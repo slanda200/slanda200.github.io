@@ -4,7 +4,7 @@ title: Procvičovač – procvičuj zábavně
 ---
 
 <div class="layout-wrapper">
-  <!-- Horní bar – full-width, začíná vlevo -->
+  <!-- Horní bar – bez mezer vlevo -->
   <header class="top-bar">
     <div class="container">
       <a href="/" class="logo">Procvičovač</a>
@@ -16,9 +16,9 @@ title: Procvičovač – procvičuj zábavně
     </div>
   </header>
 
-  <!-- Obsah: sidebar + hlavní plocha -->
+  <!-- Obsah: sidebar vlevo + hlavní plocha -->
   <div class="content-area">
-    <!-- Levý sidebar – začíná úplně vlevo -->
+    <!-- Sidebar – začíná úplně vlevo -->
     <aside class="sidebar">
       <nav>
         <ul class="menu">
@@ -62,7 +62,7 @@ title: Procvičovač – procvičuj zábavně
       </nav>
     </aside>
 
-    <!-- Hlavní obsah – roztáhlý, začíná vlevo -->
+    <!-- Hlavní obsah -->
     <main class="main-content">
       <h1>Vítej v Procvičovači!</h1>
       <p>Vyber si předmět v menu vlevo a začni procvičovat. Zábavně, zdarma a s přehledem tvého pokroku.</p>
@@ -79,54 +79,191 @@ title: Procvičovač – procvičuj zábavně
   /* Skrýt defaultní Minima header */
   .site-header, .header, .post-header, .page-header, header[role="banner"], #site-header { display: none !important; }
 
-  /* Horní bar – full-width, bez mezer vlevo */
-  .top-bar { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: var(--header-bg); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+  /* Horní bar – bez mezer vlevo */
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--header-bg);
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
 
   /* Obsah – začíná vlevo */
-  .content-area { margin-top: 75px; display: flex; min-height: calc(100vh - 75px); padding: 0; margin: 0; }
+  .content-area {
+    margin-top: 65px;  /* přesně pod lištou */
+    display: flex;
+    min-height: calc(100vh - 65px);
+    padding: 0;
+    margin-left: 0;
+  }
 
-  :root { --bg: #f8f9fa; --text: #1f2937; --header-bg: #e5e7eb; --sidebar-bg: #f1f5f9; --accent: #64748b; --sidebar-hover: #e2e8f0; }
+  :root {
+    --bg: #f8f9fa;
+    --text: #1f2937;
+    --header-bg: #e5e7eb;
+    --sidebar-bg: #f1f5f9;
+    --accent: #64748b;
+    --sidebar-hover: #e2e8f0;
+  }
 
-  body.dark { --bg: #0f172a; --text: #e2e8f0; --header-bg: #1e293b; --sidebar-bg: #1e293b; --accent: #94a3b8; --sidebar-hover: #334155; }
+  body.dark {
+    --bg: #0f172a;
+    --text: #e2e8f0;
+    --header-bg: #1e293b;
+    --sidebar-bg: #1e293b;
+    --accent: #94a3b8;
+    --sidebar-hover: #334155;
+  }
 
-  body { background: var(--bg); color: var(--text); margin: 0; font-family: system-ui; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: system-ui, sans-serif;
+  }
 
-  .container { max-width: 100%; margin: 0; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-  .logo { font-size: 1.9rem; font-weight: bold; color: var(--text); text-decoration: none; }
+  .logo {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: var(--text);
+    text-decoration: none;
+  }
 
-  .right-controls { display: flex; gap: 1.5rem; }
+  .right-controls {
+    display: flex;
+    gap: 1.5rem;
+  }
 
-  .mode-btn { background: none; border: none; font-size: 1.7rem; cursor: pointer; color: var(--text); }
+  .mode-btn {
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: var(--text);
+  }
 
-  .profile-btn { background: var(--accent); color: white; padding: 0.55rem 1.1rem; border-radius: 6px; text-decoration: none; }
+  .profile-btn {
+    background: var(--accent);
+    color: white;
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    text-decoration: none;
+  }
 
-  .sidebar { width: 260px; background: var(--sidebar-bg); padding: 2rem 0; position: sticky; top: 75px; height: calc(100vh - 75px); overflow-y: auto; border-right: 1px solid var(--accent); margin: 0; left: 0; }
+  .sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    padding: 2rem 0 2rem 0;  /* bez paddingu vlevo */
+    margin-left: 0;
+    position: sticky;
+    top: 65px;
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+    border-right: 1px solid var(--accent);
+  }
 
-  .menu { list-style: none; padding: 0; margin: 0; }
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-  .menu-title { display: block; padding: 0.9rem 1rem; font-size: 1.15rem; font-weight: 600; color: var(--text); text-decoration: none; border-radius: 6px; }
+  .menu-title {
+    display: block;
+    padding: 0.9rem 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+  }
 
-  .menu-title:hover { background: var(--sidebar-hover); }
+  .menu-title:hover,
+  .has-submenu.active > .menu-title {
+    background: var(--sidebar-hover);
+  }
 
-  .submenu { list-style: none; padding: 0.5rem 0 0.5rem 1rem; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .submenu {
+    list-style: none;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
 
-  .has-submenu.active .submenu { max-height: 600px; }
+  .has-submenu.active .submenu {
+    max-height: 600px;
+  }
 
-  .submenu li a { display: block; padding: 0.7rem 1rem; color: var(--text); text-decoration: none; border-radius: 6px; font-size: 0.95rem; }
+  .submenu li a {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
 
-  .submenu li a:hover { background: var(--sidebar-hover); }
+  .submenu li a:hover {
+    background: var(--sidebar-hover);
+  }
 
-  .main-content { flex: 1; padding: 4rem 1rem; max-width: 100%; margin: 0; width: 100%; }
+  .main-content {
+    flex: 1;
+    padding: 4rem 2rem 4rem 1rem;  /* míň vlevo */
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+  }
 
   h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
   p { font-size: 1.15rem; line-height: 1.6; max-width: 800px; }
 
-  .teaser-box { margin-top: 4rem; text-align: center; padding: 2.5rem; background: var(--sidebar-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+  .teaser-box {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
 
-  .start-btn { background: var(--accent); color: white; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-size: 1.25rem; display: inline-block; margin-top: 1.5rem; }
+  .start-btn {
+    background: var(--accent);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.25rem;
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
 
-  @media (max-width: 992px) { .content-area { flex-direction: column; } .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--accent); padding: 1.5rem 0; } .main-content { padding: 2.5rem 1rem; } }
+  @media (max-width: 992px) {
+    .content-area { flex-direction: column; }
+    .sidebar {
+      width: 100%;
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--accent);
+      padding: 1.5rem 0;
+    }
+    .main-content { padding: 2.5rem 1rem; }
+  }
 </style>
 
 <script>
